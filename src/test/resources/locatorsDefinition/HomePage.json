@@ -1,0 +1,42 @@
+{
+  "SearchInput": {
+    "web": {
+      "xpath": "//input[@aria-label='Buscar por producto, categor\u00eda y m\u00e1s...']"
+    }
+  },
+  "SearchButton": {
+    "web": {
+      "xpath": "//button[@aria-label='Buscar']"
+    }
+  },
+  "HamburgerMenu": {
+    "web": {
+      "xpath": "//button[@aria-label='Menu']"
+    }
+  },
+  "DesktopCategoriesMenu": {
+    "web": {
+      "xpath": "//button[contains(text(),'Categor\u00edas')]"
+    }
+  },
+  "SearchResultsGrid": {
+    "web": {
+      "xpath": "//a[contains(@href,'/tienda/pdp')]"
+    }
+  },
+  "SearchResultsTitle": {
+    "web": {
+      "xpath": "//h1 | //h2[contains(text(),'resultados')]"
+    }
+  },
+  "Logo": {
+    "web": {
+      "xpath": "//a[contains(@data-testid,'-header-logo-link')]"
+    }
+  },
+  "CookieAcceptButton": {
+    "web": {
+      "xpath": "//button[contains(text(),'Aceptar')]"
+    }
+  }
+}

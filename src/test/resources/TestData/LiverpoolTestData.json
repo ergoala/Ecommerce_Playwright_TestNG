@@ -1,0 +1,22 @@
+{
+  "SearchTests": {
+    "TC_01_Search_Product": {
+      "SearchWord": "iPhone",
+      "UrlFragment": "iphone",
+      "Execute": "Yes"
+    },
+    "TC_02_Search_Laptop": {
+      "SearchWord": "laptop",
+      "UrlFragment": "laptop",
+      "Execute": "Yes"
+    }
+  },
+  "NavigationTests": {
+    "TC_04_Navigation_Menu": {
+      "Execute": "Yes"
+    },
+    "TC_05_Logo_Visible": {
+      "Execute": "Yes"
+    }
+  }
+}
