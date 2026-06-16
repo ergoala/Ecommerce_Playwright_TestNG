@@ -17,6 +17,17 @@ public class ExcelReader {
 	private ExcelReader() {
 	}
 
+	/**
+	 * Reads test data from a specified Excel sheet for a given test case.
+	 * It searches for the test case name in the first column and returns
+	 * all data for that row as a Map.
+	 *
+	 * @param excelFilePath The absolute path to the Excel file.
+	 * @param sheetName The name of the sheet within the Excel file.
+	 * @param testCaseName The name of the test case to retrieve data for (matches first column).
+	 * @return A Map where the key is the row number and the value is a Map of column headers to cell values.
+	 * @throws RuntimeException if the sheet is not found or an error occurs during file reading.
+	 */
 	public static Map<Integer, Map<String, String>> getTestDataFromExcel(String excelFilePath, String sheetName,
 			String testCaseName) {
 		Map<Integer, Map<String, String>> dataMap = new LinkedHashMap<>();
@@ -58,6 +69,19 @@ public class ExcelReader {
 		return dataMap;
 	}
 
+	/**
+	 * Reads master data from a specified Excel sheet based on URL.
+	 * It searches for the URL in the second column and returns
+	 * all data for that row as a Map.
+	 *
+	 * @param excelFilePath The absolute path to the Excel file.
+	 * @param sheetName The name of the sheet within the Excel file.
+	 * @param url The URL to match in the second column of the sheet.
+	 * @param environment The environment (currently unused in logic but part of signature).
+	 * @param ccNumber The credit card number (currently unused in logic but part of signature).
+	 * @return A Map where the key is the row number and the value is a Map of column headers to cell values.
+	 * @throws RuntimeException if the sheet is not found or an error occurs during file reading.
+	 */
 	public static Map<Integer, Map<String, String>> getMasterDataFromExcel(String excelFilePath, String sheetName,
 			String url, String environment, String ccNumber) {
 		Map<Integer, Map<String, String>> dataMap = new LinkedHashMap<>();
@@ -97,6 +121,13 @@ public class ExcelReader {
 		return dataMap;
 	}
 
+	/**
+	 * Retrieves the string representation of a cell's value, handling different cell types.
+	 * Numeric values are converted to long if they are whole numbers, otherwise to their double string representation.
+	 *
+	 * @param cell The XSSFCell object to get the value from.
+	 * @return The string representation of the cell's value, or an empty string if the cell is null or its type is not handled.
+	 */
 	private static String getCellValueAsString(XSSFCell cell) {
 		if (cell == null)
 			return "";

@@ -21,6 +21,13 @@ public class ReadProperties {
 		}
 	}
 
+	/**
+	 * Retrieves a configuration property value by its key.
+	 *
+	 * @param key The key of the property to retrieve.
+	 * @return The string value of the property.
+	 * @throws IllegalArgumentException if the property key is not found in the configuration.
+	 */
 	public static String getConfig(String key) {
 		String value = config.getProperty(key);
 		if (value == null) {

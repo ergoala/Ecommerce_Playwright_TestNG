@@ -17,4 +17,11 @@
             <class name="com.liverpool.ui.tests.TC_02_Navigation_Menu"/>
         </classes>
     </test>
+
+    <test name="TC_03_Login">
+        <classes>
+            <class name="com.liverpool.ui.tests.TC_03_Login"/>
+        </classes>
+    </test>
+
 </suite>
