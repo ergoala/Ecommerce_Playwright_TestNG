@@ -17,7 +17,7 @@ public class TC_02_Navigation_Menu extends BaseClass {
 	static String excelFilePath = ReadProperties.getConfig("DATASHEET_PATH");
 	static String masterDataSheetName = ReadProperties.getConfig("LIVERPOOL_MASTERDATA_SHEETNAME");
 	static String testDataSheetName = ReadProperties.getConfig("LIVERPOOL_TESTDATA_SHEETNAME");
-	static String testCaseName = "TC_04_Navigation_Menu";
+	static String testCaseName = "NS_TC002_TestcaseID";
 	static String environment = System.getenv("ENVIRONMENT");
 	static String url = ReadProperties.getConfig("baseUrl");
 

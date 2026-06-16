@@ -19,6 +19,11 @@ import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
+/**
+ * Base class for Playwright test framework providing browser management,
+ * JSON configuration loading, screenshot capture, and ExtentReports integration.
+ * Uses ThreadLocal for thread-safe parallel execution.
+ */
 public class BaseClass {
 
 	public static Logger log = LogManager.getLogger(BaseClass.class);
@@ -35,18 +40,35 @@ public class BaseClass {
 		browserName = System.getProperty("browser", "chromium");
 	}
 
+	/**
+	 * Gets the current thread's Playwright Page instance.
+	 * @return Page object for the current thread
+	 */
 	public static Page getPage() {
 		return page.get();
 	}
 
+	/**
+	 * Gets the JSON configuration map for the current thread.
+	 * Contains locators and test data loaded from JSON files.
+	 * @return HashMap with JSON configuration data
+	 */
 	public static HashMap<String, Object> getJsonMap() {
 		return jsonMap.get();
 	}
 
+	/**
+	 * Gets the current ExtentTest instance for reporting.
+	 * @return ExtentTest from ExtentListeners ThreadLocal
+	 */
 	public static ExtentTest getTest() {
 		return ExtentListeners.getTest();
 	}
 
+	/**
+	 * Captures a full-page screenshot and attaches it to the current ExtentReport.
+	 * Used for failure evidence in test reports.
+	 */
 	public static void addScreenCaptureToReport() {
 		Page p = page.get();
 		if (p != null) {
@@ -59,6 +81,11 @@ public class BaseClass {
 		}
 	}
 
+	/**
+	 * Captures a full-page screenshot and saves it to TestReport/screenshots/.
+	 * @param p Playwright Page to screenshot
+	 * @return File path of the saved screenshot
+	 */
 	private static String captureScreenshot(Page p) {
 		String timeStamp = java.time.LocalDateTime.now()
 				.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
@@ -77,6 +104,12 @@ public class BaseClass {
 		return screenshotPath;
 	}
 
+	/**
+	 * Initializes Playwright browser, context, and page for the current thread.
+	 * Supports chromium, firefox, and webkit browsers. Sets Spanish-Mexico locale
+	 * and 1366x768 viewport. Navigates to the provided URL.
+	 * @param url Target URL to navigate to
+	 */
 	public void initDriver(String url) {
 		Playwright pw = Playwright.create();
 		Browser br;
@@ -107,6 +140,11 @@ public class BaseClass {
 		page.set(pg);
 	}
 
+	/**
+	 * Loads a JSON configuration file from resources and flattens it into a HashMap.
+	 * Supports nested objects and arrays. Used for locator definitions and test data.
+	 * @param jsonPath Path to JSON file in resources (e.g., "locatorsDefinition/HomePage.json")
+	 */
 	public static void loadJson(String jsonPath) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -122,6 +160,12 @@ public class BaseClass {
 		}
 	}
 
+	/**
+	 * Recursively flattens a JSON node into a HashMap.
+	 * Handles objects, arrays, and primitive values.
+	 * @param node JSON node to process
+	 * @param map Target HashMap to populate
+	 */
 	@SuppressWarnings("unchecked")
 	private static void buildFlatMap(JsonNode node, HashMap<String, Object> map) {
 		if (node.isObject()) {
@@ -140,6 +184,11 @@ public class BaseClass {
 		}
 	}
 
+	/**
+	 * Tears down Playwright resources for the current thread.
+	 * Closes page, context, browser, and Playwright instance in reverse order.
+	 * Cleans up ThreadLocal references to prevent memory leaks.
+	 */
 	public void tearDown() {
 		Page pg = page.get();
 		if (pg != null)

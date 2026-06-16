@@ -1,24 +1,22 @@
 package com.liverpool.ui.tests;
 
-import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
 import com.liverpool.commons.BaseClass;
 import com.liverpool.commons.ExtentLogger;
 import com.liverpool.commons.ReadProperties;
 import com.liverpool.commons.Utility;
 import com.liverpool.ui.pages.HeaderFooterPage;
 import com.liverpool.ui.pages.HomePage;
-import com.liverpool.ui.pages.SearchResultsPage;
+import org.testng.ITestContext;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class TC_01_Search_Product extends BaseClass {
+public class TC_03_Login extends BaseClass {
 
 	static String excelFilePath = ReadProperties.getConfig("DATASHEET_PATH");
 	static String masterDataSheetName = ReadProperties.getConfig("LIVERPOOL_MASTERDATA_SHEETNAME");
 	static String testDataSheetName = ReadProperties.getConfig("LIVERPOOL_TESTDATA_SHEETNAME");
-	static String testCaseName = "NS_TC001_TestcaseID";
+	static String testCaseName = "NS_TC002_TestcaseID";
 	static String environment = System.getenv("ENVIRONMENT");
 	static String url = ReadProperties.getConfig("baseUrl");
 
@@ -35,21 +33,11 @@ public class TC_01_Search_Product extends BaseClass {
 		initDriver(url);
 	}
 
-	@Test(groups = { "search", "smoke" }, description = "TC_01_Search_Product - Search for a product on Liverpool store")
-	public void searchProductOnLiverpool() throws Exception {
-
-		String searchWord = "iPhone";
-		String urlFragment = "iphone";
-
-		if (Utility.testdataMap != null) {
-			searchWord = Utility.testdataMap.get("SearchWord") != null ? Utility.testdataMap.get("SearchWord")
-					: searchWord;
-			urlFragment = Utility.testdataMap.get("UrlFragment") != null ? Utility.testdataMap.get("UrlFragment")
-					: urlFragment;
-		}
+	@Test(groups = { "navigation", "smoke" }, description = "TC_02_Navigation_Menu - Verify hamburger menu and logo visibility")
+	public void verifyNavigationMenu() throws Exception {
 
 		logger.set(BaseClass.log);
-		logger.get().info("<b>***** Liverpool Store - Product Search Test (Playwright) *****</b>");
+		logger.get().info("<b>***** Liverpool Store - Navigation Menu Test (Playwright) *****</b>");
 
 		HeaderFooterPage headerFooterPage = new HeaderFooterPage();
 		headerFooterPage.acceptCookie();
@@ -59,19 +47,17 @@ public class TC_01_Search_Product extends BaseClass {
 		HomePage homePage = new HomePage();
 		homePage.validateLogoVisible();
 
-		logger.get().info("<b>***** Searching for product: " + searchWord + " *****</b>");
-		homePage.searchProduct(searchWord);
+		logger.get().info("<b>***** Opening hamburger menu *****</b>");
+		homePage.openHamburgerMenu();
 
-		homePage.isUrlContains(urlFragment);
+		logger.get().info("<b>***** Validating logo is still visible after menu open *****</b>");
+		homePage.validateLogoVisible();
 
-		SearchResultsPage searchResultsPage = new SearchResultsPage();
-		searchResultsPage.isResultsDisplayed();
-
-		Utility.validateUIDataField("searchProductOnLiverpool", "Search Results Displayed",
-				String.valueOf(searchResultsPage.isResultsDisplayed()), "true", "UI", true, "Equals");
+		Utility.validateUIDataField("verifyNavigationMenu", "Logo Visible After Menu Open",
+				"true", "true", "UI", true, "Equals");
 
 		Utility.storeExecutionTime(testCaseName);
-		ExtentLogger.pass("Product search test completed successfully", true);
+		ExtentLogger.pass("Navigation menu test completed successfully", true);
 	}
 
 	@AfterClass

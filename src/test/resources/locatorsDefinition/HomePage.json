@@ -1,42 +1,50 @@
 {
   "SearchInput": {
     "web": {
-      "xpath": "//input[@aria-label='Buscar por producto, categor\u00eda y m\u00e1s...']"
+      "xpath": "//input[@aria-label='Buscar por producto, categor\u00eda y m\u00e1s...']",
+      "css": "input[aria-label*='Buscar por producto']"
     }
   },
   "SearchButton": {
     "web": {
-      "xpath": "//button[@aria-label='Buscar']"
+      "xpath": "//button[@aria-label='Buscar']",
+      "css": "button[aria-label='Buscar']"
     }
   },
   "HamburgerMenu": {
     "web": {
-      "xpath": "//button[@aria-label='Menu']"
+      "xpath": "//button[@data-testid='blt26617d4f2e17657d-header-button-menu' or @aria-label='Menu' or @aria-label='Menú' or contains(@class,'hamburger')]",
+      "css": "button[data-testid='blt26617d4f2e17657d-header-button-menu'], button[aria-label='Menu'], button[aria-label='Menú'], button.hamburger-menu"
     }
   },
   "DesktopCategoriesMenu": {
     "web": {
-      "xpath": "//button[contains(text(),'Categor\u00edas')]"
+      "xpath": "//button[contains(translate(text(),'CATEGORÍAS','categorias'),'categorias') or contains(@aria-label,'Categor') or contains(@class,'categor') or @data-testid='blt26617d4f2e17657d-header-button-categorias']",
+      "css": "button[aria-label*='Categor'], button.categories-menu, nav.categories button, button[data-testid*='categorias']"
     }
   },
   "SearchResultsGrid": {
     "web": {
-      "xpath": "//a[contains(@href,'/tienda/pdp')]"
+      "xpath": "//a[contains(@href,'/tienda/pdp')]",
+      "css": "a[href*='/tienda/pdp']"
     }
   },
   "SearchResultsTitle": {
     "web": {
-      "xpath": "//h1 | //h2[contains(text(),'resultados')]"
+      "xpath": "//h1 | //h2[contains(text(),'resultados')]",
+      "css": "h1, h2:has-text('resultados')"
     }
   },
   "Logo": {
     "web": {
-      "xpath": "//a[contains(@data-testid,'-header-logo-link')]"
+      "xpath": "//a[contains(@data-testid,'-header-logo-link')]",
+      "css": "a[data-testid*='-header-logo-link']"
     }
   },
   "CookieAcceptButton": {
     "web": {
-      "xpath": "//button[contains(text(),'Aceptar')]"
+      "xpath": "//button[contains(text(),'Aceptar') or contains(text(),'Accept') or @id='onetrust-accept-btn-handler']",
+      "css": "button:has-text('Aceptar'), button:has-text('Accept'), #onetrust-accept-btn-handler"
     }
   }
 }
